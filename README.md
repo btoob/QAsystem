@@ -10,15 +10,13 @@
 [Visual-paradigm](https://www.visual-paradigm.com)
 ## script
 ```sql
-create table USER
-(
-	ID INT auto_increment,
-	ACCOUNTID VARCHAR(100),
-	NAME VARCHAR(50),
-	TOKEN CHAR(36),
-	GMTCREATE BIGINT,
-	GMTMODIFIED BIGINT,
-	constraint USER_PK
-		primary key (ID)
-);
+create table user(
+    id int AUTO_INCREMENT primary key not null comment '用户编号',
+    name varchar(50) default null comment '用户名',
+    password varchar(50) default null comment '密码',
+    email varchar(30) default null comment '邮箱',
+    user_face varchar(255) default null comment '头像'
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
+##note
+导入flyway依赖的同时必须导入mybatis的依赖，因为Flyway用到其中的数据库注解
