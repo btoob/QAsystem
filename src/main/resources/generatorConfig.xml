@@ -66,5 +66,12 @@
                selectByExampleQueryId="false">
             <columnOverride column="password" javaType="java.lang.String" jdbcType="VARCHAR" />
         </table>
+        <table tableName="question" domainObjectName="Question"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
     </context>
 </generatorConfiguration>
