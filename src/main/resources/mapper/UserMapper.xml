@@ -11,6 +11,10 @@
   <sql id="Base_Column_List">
     id, name, password, email, user_face
   </sql>
+
+  <select id="loadUserByNameAndPwd" resultMap="BaseResultMap">
+    select * from user where name=#{username} and password=#{password}
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

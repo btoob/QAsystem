@@ -18,5 +18,5 @@ create table user(
     user_face varchar(255) default null comment '头像'
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
-##note
+## note
 导入flyway依赖的同时必须导入mybatis的依赖，因为Flyway用到其中的数据库注解

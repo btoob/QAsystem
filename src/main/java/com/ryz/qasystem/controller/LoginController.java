@@ -1,13 +1,22 @@
 package com.ryz.qasystem.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import com.ryz.qasystem.model.RespBean;
+import com.ryz.qasystem.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 public class LoginController {
 
-    @GetMapping("/login")
-    public String login(){
-        return "login";
+    @Autowired
+    UserService userService;
+
+    @PostMapping("/login")
+    public RespBean login(String username, String password){
+        if (userService.loadUserByNameAndPwd(username, password)){
+            return RespBean.ok("登录成功");
+        }
+        return RespBean.error("用户名或者密码错误，请重新输入");
     }
 }
