@@ -15,4 +15,8 @@ public class QuestionService {
     public List<Question> getAllQuestions() {
         return questionMapper.getAllQuestions();
     }
+
+    public Question getQuestionById(Integer id) {
+        return questionMapper.selectByPrimaryKey(id);
+    }
 }

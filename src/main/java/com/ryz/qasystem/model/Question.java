@@ -1,14 +1,16 @@
 package com.ryz.qasystem.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Question {
     private Integer id;
 
     private String title;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "Asia/Shanghai")
     private Date createTime;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "Asia/Shanghai")
     private Date updateTime;
 
     private Integer commentCount;
