@@ -13,8 +13,7 @@ public class UserService {
     @Autowired
     UserMapper userMapper;
 
-    public boolean loadUserByNameAndPwd(String username, String password) {
-        List<User> userList =  userMapper.loadUserByNameAndPwd(username, password);
-        return userList != null && userList.size() == 1;
+    public List<User> loadUserByNameAndPwd(String username, String password) {
+        return userMapper.loadUserByNameAndPwd(username, password);
     }
 }
