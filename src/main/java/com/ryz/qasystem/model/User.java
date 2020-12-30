@@ -1,8 +1,10 @@
 package com.ryz.qasystem.model;
 
-import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class User implements Serializable {
+import java.util.Date;
+
+public class User {
     private Integer id;
 
     private String name;
@@ -12,6 +14,12 @@ public class User implements Serializable {
     private String email;
 
     private String userFace;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "Asia/Shanghai")
+    private Date createTime;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "Asia/Shanghai")
+    private Date updateTime;
 
     public Integer getId() {
         return id;
@@ -51,5 +59,21 @@ public class User implements Serializable {
 
     public void setUserFace(String userFace) {
         this.userFace = userFace == null ? null : userFace.trim();
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }
