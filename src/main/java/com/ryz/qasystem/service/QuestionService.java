@@ -5,6 +5,7 @@ import com.ryz.qasystem.model.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -18,5 +19,12 @@ public class QuestionService {
 
     public Question getQuestionById(Integer id) {
         return questionMapper.selectByPrimaryKey(id);
+    }
+
+    public Integer addQuestion(Question question) {
+        Date date = new Date();
+        question.setCreateTime(date);
+        question.setUpdateTime(date);
+        return questionMapper.insertSelective(question);
     }
 }
