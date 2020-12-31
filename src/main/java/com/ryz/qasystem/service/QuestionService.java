@@ -27,4 +27,13 @@ public class QuestionService {
         question.setUpdateTime(date);
         return questionMapper.insertSelective(question);
     }
+
+    public Integer updateQuestion(Question question) {
+        Question dbQuestion = questionMapper.selectByPrimaryKey(question.getId());
+        dbQuestion.setUpdateTime(new Date());
+        dbQuestion.setTitle(question.getTitle());
+        dbQuestion.setDescription(question.getDescription());
+        dbQuestion.setTag(question.getTag());
+        return questionMapper.updateByPrimaryKeySelective(dbQuestion);
+    }
 }

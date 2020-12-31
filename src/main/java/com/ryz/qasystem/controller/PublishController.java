@@ -21,4 +21,12 @@ public class PublishController {
         return RespBean.error("发布失败");
 
     }
+
+    @PutMapping("/update")
+    public RespBean doUpdate(@RequestBody Question question){
+        if (questionService.updateQuestion(question)==1){
+            return RespBean.ok("修改成功", "aaaaaa");
+        }
+        return RespBean.error("修改失败");
+    }
 }
