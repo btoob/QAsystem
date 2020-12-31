@@ -2,6 +2,7 @@ package com.ryz.qasystem.service;
 
 import com.ryz.qasystem.mapper.QuestionMapper;
 import com.ryz.qasystem.model.Question;
+import com.ryz.qasystem.model.RespPageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +14,16 @@ public class QuestionService {
     @Autowired
     QuestionMapper questionMapper;
 
-    public List<Question> getAllQuestions() {
-        return questionMapper.getAllQuestions();
+    public RespPageBean getAllQuestionsByPage(Integer page, Integer size) {
+        if (page!=null && size!=null){
+            page=(page-1)*size;
+        }
+        List<Question> data = questionMapper.getAllQuestionsByPage(page, size);
+        Long totalNumQueston = questionMapper.getTotalNumQueston();
+        RespPageBean pageBean = new RespPageBean();
+        pageBean.setData(data);
+        pageBean.setTotal(totalNumQueston);
+        return pageBean;
     }
 
     public Question getQuestionById(Integer id) {

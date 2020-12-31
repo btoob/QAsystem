@@ -22,8 +22,14 @@
   <sql id="Blob_Column_List">
     description
   </sql>
-  <select id="getAllQuestions" resultMap="BaseResultMap">
+  <select id="getAllQuestionsByPage" resultMap="BaseResultMap">
     select * from question
+    <if test="page!=null and size!=null">
+      limit #{page}, #{size}
+    </if>
+  </select>
+  <select id="getTotalNumQueston" resultType="java.lang.Long">
+    select count(1) from question
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select 

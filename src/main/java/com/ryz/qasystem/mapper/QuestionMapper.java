@@ -1,6 +1,7 @@
 package com.ryz.qasystem.mapper;
 
 import com.ryz.qasystem.model.Question;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -19,5 +20,7 @@ public interface QuestionMapper {
 
     int updateByPrimaryKey(Question record);
 
-    List<Question> getAllQuestions();
+    List<Question> getAllQuestionsByPage(@Param("page") Integer page, @Param("size") Integer size);
+
+    Long getTotalNumQueston();
 }
