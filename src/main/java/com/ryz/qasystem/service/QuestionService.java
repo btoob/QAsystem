@@ -1,8 +1,12 @@
 package com.ryz.qasystem.service;
 
+import com.ryz.qasystem.dto.QuestionDTO;
 import com.ryz.qasystem.mapper.QuestionMapper;
+import com.ryz.qasystem.mapper.UserMapper;
 import com.ryz.qasystem.model.Question;
 import com.ryz.qasystem.model.RespPageBean;
+import com.ryz.qasystem.model.User;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +17,8 @@ import java.util.List;
 public class QuestionService {
     @Autowired
     QuestionMapper questionMapper;
+    @Autowired
+    UserMapper userMapper;
 
     public RespPageBean getAllQuestionsByPage(Integer page, Integer size) {
         if (page!=null && size!=null){
@@ -26,8 +32,13 @@ public class QuestionService {
         return pageBean;
     }
 
-    public Question getQuestionById(Integer id) {
-        return questionMapper.selectByPrimaryKey(id);
+    public QuestionDTO getQuestionById(Integer id) {
+        Question question = questionMapper.selectByPrimaryKey(id);
+        User user = userMapper.getUserById(question.getUserId());
+        QuestionDTO questionDTO = new QuestionDTO();
+        BeanUtils.copyProperties(question, questionDTO);
+        questionDTO.setUser(user);
+        return questionDTO;
     }
 
     public Integer addQuestion(Question question) {

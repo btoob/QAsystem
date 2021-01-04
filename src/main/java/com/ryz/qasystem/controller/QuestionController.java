@@ -1,5 +1,6 @@
 package com.ryz.qasystem.controller;
 
+import com.ryz.qasystem.dto.QuestionDTO;
 import com.ryz.qasystem.model.Question;
 import com.ryz.qasystem.model.RespPageBean;
 import com.ryz.qasystem.service.QuestionService;
@@ -20,7 +21,7 @@ public class QuestionController {
     }
 
     @GetMapping("/{id}")
-    public Question getQuestionById(@PathVariable Integer id){
+    public QuestionDTO getQuestionById(@PathVariable Integer id){
         questionService.incView(id);
         return questionService.getQuestionById(id);
     }
