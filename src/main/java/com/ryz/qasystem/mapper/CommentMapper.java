@@ -19,5 +19,5 @@ public interface CommentMapper {
 
     void incCommentCount(Comment dbcomment);
 
-    List<Comment> getAllComments();
+    List<Comment> getAllCommentsByQuestionId(Integer id);
 }

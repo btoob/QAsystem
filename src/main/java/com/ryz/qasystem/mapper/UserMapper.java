@@ -18,4 +18,6 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
 
     List<User> loadUserByNameAndPwd(String username, String password);
+
+    User getUserById(Integer commentator);
 }

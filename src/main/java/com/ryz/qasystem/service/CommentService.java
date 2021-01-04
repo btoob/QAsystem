@@ -1,13 +1,18 @@
 package com.ryz.qasystem.service;
 
 
+import com.ryz.qasystem.dto.CommentDTO;
 import com.ryz.qasystem.mapper.CommentMapper;
 import com.ryz.qasystem.mapper.QuestionMapper;
+import com.ryz.qasystem.mapper.UserMapper;
 import com.ryz.qasystem.model.Comment;
 import com.ryz.qasystem.model.Question;
+import com.ryz.qasystem.model.User;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,10 +23,16 @@ public class CommentService {
     QuestionMapper questionMapper;
     @Autowired
     CommentMapper commentMapper;
+    @Autowired
+    UserMapper userMapper;
+
     public boolean insert(Comment comment) {
         if (comment.getType()==1){   //回复问题
             Question question = questionMapper.selectByPrimaryKey(comment.getParentId());
             comment.setCommentCount(0);
+            comment.setCreateTime(new Date());
+            comment.setUpdateTime(new Date());
+            comment.setLikeCount(0);
             int i = commentMapper.insertSelective(comment);
 
             //增加问题评论数
@@ -51,7 +62,16 @@ public class CommentService {
         }
     }
 
-    public List<Comment> getAllComments() {
-        return commentMapper.getAllComments();
+    public List<CommentDTO> getAllCommentsByQuestionId(Integer id) {
+        List<Comment> allCommentsByQuestionId = commentMapper.getAllCommentsByQuestionId(id);
+        List<CommentDTO> commentDTOs = new ArrayList<>();
+        for (Comment comment:allCommentsByQuestionId){
+            User user = userMapper.getUserById(comment.getCommentator());
+            CommentDTO commentDTO = new CommentDTO();
+            BeanUtils.copyProperties(comment, commentDTO);
+            commentDTO.setUser(user);
+            commentDTOs.add(commentDTO);
+        }
+        return commentDTOs;
     }
 }

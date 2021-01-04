@@ -13,6 +13,10 @@
   <sql id="Base_Column_List">
     id, name, password, email, user_face, create_time, update_time
   </sql>
+
+  <select id="getUserById" resultMap="BaseResultMap">
+    select * from user where id=#{id}
+  </select>
   <select id="loadUserByNameAndPwd" resultMap="BaseResultMap">
     select * from user where name=#{username} and password=#{password}
   </select>

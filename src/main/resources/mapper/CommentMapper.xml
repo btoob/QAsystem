@@ -22,8 +22,8 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="getAllComments" resultMap="BaseResultMap">
-    select * from comment
+  <select id="getAllCommentsByQuestionId" resultMap="BaseResultMap">
+    select * from comment where parent_id=#{id}
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
