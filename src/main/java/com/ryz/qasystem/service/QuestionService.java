@@ -45,4 +45,11 @@ public class QuestionService {
         dbQuestion.setTag(question.getTag());
         return questionMapper.updateByPrimaryKeySelective(dbQuestion);
     }
+
+    public void incView(Integer id) {
+        Question question = questionMapper.selectByPrimaryKey(id);
+        question.setViewCount(question.getViewCount()+1);
+        question.setUpdateTime(new Date());
+        questionMapper.incView(question);
+    }
 }

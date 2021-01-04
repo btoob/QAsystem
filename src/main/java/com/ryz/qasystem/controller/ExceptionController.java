@@ -17,6 +17,6 @@ public class ExceptionController {
         Map<String, Object> map = new HashMap<>();
         Object o = 100;
         map.put("字符串是多少：",o );
-        throw new QuestionNotFoundException(map);
+        throw new QuestionNotFoundException(null);
     }
 }

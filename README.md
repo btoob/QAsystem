@@ -20,3 +20,8 @@ create table user(
 ```
 ## note
 导入flyway依赖的同时必须导入mybatis的依赖，因为Flyway用到其中的数据库注解
+## 运行 migrate 和 generator 的命令
+```bash
+mvn flyway:migrate
+mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
+```

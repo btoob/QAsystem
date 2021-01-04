@@ -21,6 +21,7 @@ public class QuestionController {
 
     @GetMapping("/{id}")
     public Question getQuestionById(@PathVariable Integer id){
+        questionService.incView(id);
         return questionService.getQuestionById(id);
     }
 }

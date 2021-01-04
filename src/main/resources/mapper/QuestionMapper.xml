@@ -22,6 +22,15 @@
   <sql id="Blob_Column_List">
     description
   </sql>
+
+  <update id="incCommentCount" parameterType="com.ryz.qasystem.model.Question">
+    update question set update_time=#{updateTime, jdbcType=TIMESTAMP},comment_count=#{commentCount, jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="incView" parameterType="com.ryz.qasystem.model.Question">
+    update question set update_time=#{updateTime, jdbcType=TIMESTAMP},view_count=#{viewCount, jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
   <select id="getAllQuestionsByPage" resultMap="BaseResultMap">
     select * from question
     <if test="page!=null and size!=null">
