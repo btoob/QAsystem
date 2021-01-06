@@ -1,5 +1,6 @@
 package com.ryz.qasystem.controller;
 
+import com.ryz.qasystem.Utils.AvatarUtil;
 import com.ryz.qasystem.model.RespBean;
 import com.ryz.qasystem.model.User;
 import com.ryz.qasystem.service.UserService;
@@ -15,6 +16,8 @@ public class UserController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    AvatarUtil avatarUtil;
 
     @PostMapping("/login")
     public RespBean login(String username, String password){
@@ -30,6 +33,8 @@ public class UserController {
 
     @PostMapping("/signUp")
     public RespBean signUp(@RequestBody User user){
+        String avatarUrl = avatarUtil.getAvatarData();
+        user.setUserFace(avatarUrl);
         if (userService.addUser(user)==1){
             return RespBean.ok("注册成功, 请登录");
         }

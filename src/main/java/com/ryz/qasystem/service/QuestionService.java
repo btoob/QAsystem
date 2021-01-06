@@ -10,6 +10,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -25,9 +26,17 @@ public class QuestionService {
             page=(page-1)*size;
         }
         List<Question> data = questionMapper.getAllQuestionsByPage(page, size);
+        List<QuestionDTO> questionDTOS = new ArrayList<>();
+        for(Question question:data){
+            QuestionDTO questionDTO = new QuestionDTO();
+            User user = userMapper.getUserById(question.getUserId());
+            BeanUtils.copyProperties(question, questionDTO);
+            questionDTO.setUser(user);
+            questionDTOS.add(questionDTO);
+        }
         Long totalNumQueston = questionMapper.getTotalNumQueston();
         RespPageBean pageBean = new RespPageBean();
-        pageBean.setData(data);
+        pageBean.setData(questionDTOS);
         pageBean.setTotal(totalNumQueston);
         return pageBean;
     }

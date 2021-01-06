@@ -1,7 +1,6 @@
 package com.ryz.qasystem.controller;
 
 import com.ryz.qasystem.dto.QuestionDTO;
-import com.ryz.qasystem.model.Question;
 import com.ryz.qasystem.model.RespPageBean;
 import com.ryz.qasystem.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
