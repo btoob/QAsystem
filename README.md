@@ -25,3 +25,9 @@ create table user(
 mvn flyway:migrate
 mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
 ```
+## BUG
+```text
+1、tag标签暂时只能添加一个，后期需要改为数组
+2、程序出错时应该要返回定制错误页面
+3、应该加入spring security
+```
