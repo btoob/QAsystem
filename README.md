@@ -30,4 +30,6 @@ mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
 1、tag标签暂时只能添加一个，后期需要改为数组
 2、程序出错时应该要返回定制错误页面
 3、应该加入spring security
+4、questionDTO封装user的时候似乎需要重新整一个BaseResultMap
+5、getUserQuestionsByPage与getAllQuestionsByPage(Integer page, Integer size)有重复代码抽取
 ```

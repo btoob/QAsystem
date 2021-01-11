@@ -27,4 +27,8 @@ public interface QuestionMapper {
     void incView(Question question);
 
     void incCommentCount(Question question);
+
+    List<Question> getUserQuestionsByPage(@Param("page") Integer page, @Param("size") Integer size, @Param("id") Integer id);
+
+    Long getTotalNumQuestonByUserId(Integer id);
 }

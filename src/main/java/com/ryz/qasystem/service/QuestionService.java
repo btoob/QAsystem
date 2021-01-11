@@ -72,4 +72,26 @@ public class QuestionService {
         question.setUpdateTime(new Date());
         questionMapper.incView(question);
     }
+
+    public RespPageBean getUserQuestionsByPage(Integer page, Integer size, Integer id) {
+        if (page!=null&&size!=null){
+            page=(page-1)*size;
+        }
+
+        List<Question> data = questionMapper.getUserQuestionsByPage(page, size, id);
+        List<QuestionDTO> questionDTOs = new ArrayList<>();
+        for (Question question:data){
+            QuestionDTO questionDTO = new QuestionDTO();
+            User user = userMapper.getUserById(question.getUserId());
+            BeanUtils.copyProperties(question, questionDTO);
+            questionDTO.setUser(user);
+            questionDTOs.add(questionDTO);
+        }
+        Long totalNumQuestion = questionMapper.getTotalNumQuestonByUserId(id);
+        RespPageBean pageBean = new RespPageBean();
+        pageBean.setData(questionDTOs);
+        pageBean.setTotal(totalNumQuestion);
+        return pageBean;
+
+    }
 }

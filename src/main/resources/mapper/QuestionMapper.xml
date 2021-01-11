@@ -37,8 +37,17 @@
       limit #{page}, #{size}
     </if>
   </select>
+  <select id="getUserQuestionsByPage" resultMap="BaseResultMap">
+    select * from question where user_id=#{id}
+    <if test="page!=null and size!=null">
+      limit #{page}, #{size}
+    </if>
+  </select>
   <select id="getTotalNumQueston" resultType="java.lang.Long">
     select count(1) from question
+  </select>
+  <select id="getTotalNumQuestonByUserId" resultType="java.lang.Long">
+    select count(1) from question where user_id=#{id}
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select 

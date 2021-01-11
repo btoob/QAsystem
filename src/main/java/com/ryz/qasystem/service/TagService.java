@@ -28,7 +28,7 @@ public class TagService {
                 childrenTagOptionDTOs.add(childrenTagOptionDTO);
             }
             tagOptionDTO.setChildren(childrenTagOptionDTOs);
-            tagOptionDTOs.add(tagOptionDTO  );
+            tagOptionDTOs.add(tagOptionDTO);
         }
         return tagOptionDTOs;
     }
