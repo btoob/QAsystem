@@ -26,7 +26,7 @@ public class QuestionController {
         return questionService.getQuestionById(id);
     }
 
-    @GetMapping("/profile/{id}")
+    @GetMapping("/profile/{id}")   //个人的所有问题
     public RespPageBean getUserQuestionsByPage(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "5") Integer size, @PathVariable Integer id){
         return questionService.getUserQuestionsByPage(page, size, id);
     }

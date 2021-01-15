@@ -20,7 +20,7 @@ public class QuestionDTO {
 
     private Integer likeCount;
 
-    private String tag;
+    private String[] tag;
 
     private Integer userId;
 
@@ -84,11 +84,11 @@ public class QuestionDTO {
         this.likeCount = likeCount;
     }
 
-    public String getTag() {
+    public String[] getTag() {
         return tag;
     }
 
-    public void setTag(String tag) {
+    public void setTag(String[] tag) {
         this.tag = tag;
     }
 

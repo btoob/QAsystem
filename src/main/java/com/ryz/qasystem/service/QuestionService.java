@@ -46,7 +46,10 @@ public class QuestionService {
         User user = userMapper.getUserById(question.getUserId());
         QuestionDTO questionDTO = new QuestionDTO();
         BeanUtils.copyProperties(question, questionDTO);
+        String tag = question.getTag();
+        String[] split = tag.split(",");
         questionDTO.setUser(user);
+        questionDTO.setTag(split);
         return questionDTO;
     }
 
