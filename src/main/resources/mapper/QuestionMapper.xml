@@ -23,6 +23,16 @@
     description
   </sql>
 
+  <select id="getRelatedQuestionByTag" resultMap="BaseResultMap" parameterType="String">
+    select * from question
+    <where>
+
+      <if test="tag != null and tag != ''">
+        tag regexp #{_parameter}
+      </if>
+    </where>
+    order by create_time desc limit 10
+  </select>
   <update id="incCommentCount" parameterType="com.ryz.qasystem.model.Question">
     update question set update_time=#{updateTime, jdbcType=TIMESTAMP},comment_count=#{commentCount, jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
@@ -32,13 +42,13 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="getAllQuestionsByPage" resultMap="BaseResultMap">
-    select * from question
+    select * from question order by create_time desc
     <if test="page!=null and size!=null">
       limit #{page}, #{size}
     </if>
   </select>
   <select id="getUserQuestionsByPage" resultMap="BaseResultMap">
-    select * from question where user_id=#{id}
+    select * from question where user_id=#{id} order by create_time desc
     <if test="page!=null and size!=null">
       limit #{page}, #{size}
     </if>

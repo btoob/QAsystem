@@ -32,4 +32,5 @@ mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
 3、应该加入spring security
 4、questionDTO封装user的时候似乎需要重新整一个BaseResultMap
 5、getUserQuestionsByPage与getAllQuestionsByPage(Integer page, Integer size)有重复代码抽取
+6、问题查询逻辑貌似有重复，已经将所有问题封装成DTOs返回了，为何进入问题详情页面时再查一次？
 ```

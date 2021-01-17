@@ -10,9 +10,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class QuestionService {
@@ -22,12 +20,12 @@ public class QuestionService {
     UserMapper userMapper;
 
     public RespPageBean getAllQuestionsByPage(Integer page, Integer size) {
-        if (page!=null && size!=null){
-            page=(page-1)*size;
+        if (page != null && size != null) {
+            page = (page - 1) * size;
         }
         List<Question> data = questionMapper.getAllQuestionsByPage(page, size);
         List<QuestionDTO> questionDTOS = new ArrayList<>();
-        for(Question question:data){
+        for (Question question : data) {
             QuestionDTO questionDTO = new QuestionDTO();
             User user = userMapper.getUserById(question.getUserId());
             BeanUtils.copyProperties(question, questionDTO);
@@ -71,19 +69,19 @@ public class QuestionService {
 
     public void incView(Integer id) {
         Question question = questionMapper.selectByPrimaryKey(id);
-        question.setViewCount(question.getViewCount()+1);
+        question.setViewCount(question.getViewCount() + 1);
         question.setUpdateTime(new Date());
         questionMapper.incView(question);
     }
 
     public RespPageBean getUserQuestionsByPage(Integer page, Integer size, Integer id) {
-        if (page!=null&&size!=null){
-            page=(page-1)*size;
+        if (page != null && size != null) {
+            page = (page - 1) * size;
         }
 
         List<Question> data = questionMapper.getUserQuestionsByPage(page, size, id);
         List<QuestionDTO> questionDTOs = new ArrayList<>();
-        for (Question question:data){
+        for (Question question : data) {
             QuestionDTO questionDTO = new QuestionDTO();
             User user = userMapper.getUserById(question.getUserId());
             BeanUtils.copyProperties(question, questionDTO);
@@ -96,5 +94,26 @@ public class QuestionService {
         pageBean.setTotal(totalNumQuestion);
         return pageBean;
 
+    }
+
+    public List<QuestionDTO> getRelatedQuestionByTag(String[] tags) {
+        List<QuestionDTO> questionDTOs = new ArrayList<>();
+        Set<Integer> set = new HashSet<>();
+        for (String tag : tags) {
+            List<Question> relatedQuestion = questionMapper.getRelatedQuestionByTag(tag);
+            for (Question question : relatedQuestion) {
+                //防止重复
+                if (set.contains(question.getId())){
+                    continue;
+                }
+                set.add(question.getId());
+                User user = userMapper.getUserById(question.getUserId());
+                QuestionDTO questionDTO = new QuestionDTO();
+                BeanUtils.copyProperties(question, questionDTO);
+                questionDTO.setUser(user);
+                questionDTOs.add(questionDTO);
+            }
+        }
+        return questionDTOs;
     }
 }
