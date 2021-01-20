@@ -73,7 +73,14 @@
 <!--               enableSelectByExample="false"-->
 <!--               selectByExampleQueryId="false">-->
 <!--        </table>-->
-        <table tableName="comment" domainObjectName="Comment"
+<!--        <table tableName="comment" domainObjectName="Comment"-->
+<!--               enableCountByExample="false"-->
+<!--               enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false"-->
+<!--               enableSelectByExample="false"-->
+<!--               selectByExampleQueryId="false">-->
+<!--        </table>-->
+        <table tableName="notification" domainObjectName="Notification"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"
