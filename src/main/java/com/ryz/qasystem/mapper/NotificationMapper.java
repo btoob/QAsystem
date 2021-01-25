@@ -21,4 +21,8 @@ public interface NotificationMapper {
     List<Notification> getAllNotificationByUserIdByPage(@Param("page") Integer page, @Param("size") Integer size, @Param("id") Integer id);
 
     Long getTotalNumNotificationByUserId(Integer id);
+
+    Integer updateStatusById(Integer id);
+
+    Integer getTotalNotificationByUserId(Integer id);
 }

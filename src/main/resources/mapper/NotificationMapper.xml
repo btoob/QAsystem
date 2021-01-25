@@ -17,6 +17,13 @@
     create_time, update_time
   </sql>
 
+
+  <select id="getTotalNotificationByUserId" resultType="java.lang.Integer">
+    select count(1) from notification where receiver_id=#{id} and status=0;
+  </select>
+  <update id="updateStatusById" parameterType="java.lang.Integer">
+    update notification set status=1 where id=#{id}
+  </update>
   <select id="getAllNotificationByUserIdByPage" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select * from notification where receiver_id=#{id}
     order by create_time desc

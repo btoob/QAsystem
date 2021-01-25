@@ -26,4 +26,12 @@ public class NotificationService {
         pageBean.setTotal(totalNumNotification);
         return pageBean;
     }
+
+    public Integer updateStatusById(Integer id) {
+        return notificationMapper.updateStatusById(id);
+    }
+
+    public Integer getTotalNotificationByUserId(Integer id) {
+        return notificationMapper.getTotalNotificationByUserId(id);
+    }
 }
