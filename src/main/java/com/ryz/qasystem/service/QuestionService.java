@@ -19,11 +19,11 @@ public class QuestionService {
     @Autowired
     UserMapper userMapper;
 
-    public RespPageBean getAllQuestionsByPage(Integer page, Integer size) {
+    public RespPageBean getAllQuestionsByPage(String search, Integer page, Integer size) {
         if (page != null && size != null) {
             page = (page - 1) * size;
         }
-        List<Question> data = questionMapper.getAllQuestionsByPage(page, size);
+        List<Question> data = questionMapper.getAllQuestionsByPage(search, page, size);
         List<QuestionDTO> questionDTOS = new ArrayList<>();
         for (Question question : data) {
             QuestionDTO questionDTO = new QuestionDTO();

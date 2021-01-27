@@ -20,7 +20,7 @@ public interface QuestionMapper {
 
     int updateByPrimaryKey(Question record);
 
-    List<Question> getAllQuestionsByPage(@Param("page") Integer page, @Param("size") Integer size);
+    List<Question> getAllQuestionsByPage(@Param("search") String search, @Param("page") Integer page, @Param("size") Integer size);
 
     Long getTotalNumQueston();
 

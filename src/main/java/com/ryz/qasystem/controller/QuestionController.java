@@ -17,8 +17,8 @@ public class QuestionController {
     QuestionService questionService;
 
     @GetMapping("/")
-    public RespPageBean getAllQuestionsByPage(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "5") Integer size){
-        return questionService.getAllQuestionsByPage(page, size);
+    public RespPageBean getAllQuestionsByPage(@RequestParam(required = false) String search, @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "5") Integer size){
+        return questionService.getAllQuestionsByPage(search, page, size);
     }
 
     @GetMapping("/{id}")
