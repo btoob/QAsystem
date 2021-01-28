@@ -22,7 +22,7 @@ public interface QuestionMapper {
 
     List<Question> getAllQuestionsByPage(@Param("search") String search, @Param("page") Integer page, @Param("size") Integer size);
 
-    Long getTotalNumQueston();
+    Long getTotalNumQueston(String search);
 
     void incView(Question question);
 

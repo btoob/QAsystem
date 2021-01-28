@@ -32,7 +32,7 @@ public class QuestionService {
             questionDTO.setUser(user);
             questionDTOS.add(questionDTO);
         }
-        Long totalNumQueston = questionMapper.getTotalNumQueston();
+        Long totalNumQueston = questionMapper.getTotalNumQueston(search);
         RespPageBean pageBean = new RespPageBean();
         pageBean.setData(questionDTOS);
         pageBean.setTotal(totalNumQueston);
