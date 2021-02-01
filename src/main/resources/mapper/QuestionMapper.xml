@@ -23,6 +23,26 @@
     description
   </sql>
 
+  <select id="getTotalNumQuestonByTag" resultType="java.lang.Long">
+    select count(1) from question
+    <where>
+      <if test="tag != null and tag != ''">
+        tag regexp #{tag}
+      </if>
+    </where>
+  </select>
+  <select id="getQuestionByTagByPage" resultMap="BaseResultMap">
+    select * from question
+    <where>
+      <if test="tag != null and tag != ''">
+        tag regexp #{tag}
+      </if>
+      order by create_time desc
+      <if test="page!=null and size!=null">
+        limit #{page}, #{size}
+      </if>
+    </where>
+  </select>
   <select id="getRelatedQuestionByTag" resultMap="BaseResultMap" parameterType="String">
     select * from question
     <where>

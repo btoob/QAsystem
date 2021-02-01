@@ -45,4 +45,9 @@ public class QuestionController {
     public List<String> getHotTags(){
         return hotTagCache.getHots();
     }
+
+    @GetMapping("/tag/{tag}")
+    public RespPageBean getQuestionByTagByPage(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "5") Integer size, @PathVariable String tag){
+        return questionService.getQuestionByTagByPage(page, size, tag);
+    }
 }

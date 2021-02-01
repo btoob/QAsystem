@@ -29,6 +29,8 @@ public class QuestionService {
             QuestionDTO questionDTO = new QuestionDTO();
             User user = userMapper.getUserById(question.getUserId());
             BeanUtils.copyProperties(question, questionDTO);
+            String[] split = question.getTag().split(",");
+            questionDTO.setTag(split);
             questionDTO.setUser(user);
             questionDTOS.add(questionDTO);
         }
@@ -85,6 +87,8 @@ public class QuestionService {
             QuestionDTO questionDTO = new QuestionDTO();
             User user = userMapper.getUserById(question.getUserId());
             BeanUtils.copyProperties(question, questionDTO);
+            String[] split = question.getTag().split(",");
+            questionDTO.setTag(split);
             questionDTO.setUser(user);
             questionDTOs.add(questionDTO);
         }
@@ -115,5 +119,28 @@ public class QuestionService {
             }
         }
         return questionDTOs;
+    }
+
+    public RespPageBean getQuestionByTagByPage(Integer page, Integer size, String tag) {
+        if (page!=null&&size!=null){
+            page = (page-1)*size;
+        }
+
+        List<Question> data = questionMapper.getQuestionByTagByPage(page, size, tag);
+        List<QuestionDTO> questionDTOs = new ArrayList<>();
+        for (Question question : data) {
+            QuestionDTO questionDTO = new QuestionDTO();
+            User user = userMapper.getUserById(question.getUserId());
+            BeanUtils.copyProperties(question, questionDTO);
+            String[] split = question.getTag().split(",");
+            questionDTO.setTag(split);
+            questionDTO.setUser(user);
+            questionDTOs.add(questionDTO);
+        }
+        Long totalNumQuestion = questionMapper.getTotalNumQuestonByTag(tag);
+        RespPageBean pageBean = new RespPageBean();
+        pageBean.setData(questionDTOs);
+        pageBean.setTotal(totalNumQuestion);
+        return pageBean;
     }
 }

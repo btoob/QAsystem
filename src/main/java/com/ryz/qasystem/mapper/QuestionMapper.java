@@ -33,4 +33,8 @@ public interface QuestionMapper {
     Long getTotalNumQuestonByUserId(Integer id);
 
     List<Question> getRelatedQuestionByTag(String tag);
+
+    List<Question> getQuestionByTagByPage(@Param("page") Integer page, @Param("size") Integer size, @Param("tag") String tag);
+
+    Long getTotalNumQuestonByTag(String tag);
 }
