@@ -1,5 +1,7 @@
 package com.ryz.qasystem.controller;
 
+import com.ryz.qasystem.cache.HotTagCache;
+import com.ryz.qasystem.dto.HotTagDTO;
 import com.ryz.qasystem.dto.QuestionDTO;
 import com.ryz.qasystem.model.RespPageBean;
 import com.ryz.qasystem.service.QuestionService;
@@ -15,6 +17,8 @@ public class QuestionController {
 
     @Autowired
     QuestionService questionService;
+    @Autowired
+    HotTagCache hotTagCache;
 
     @GetMapping("/")
     public RespPageBean getAllQuestionsByPage(@RequestParam(required = false) String search, @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "5") Integer size){
@@ -35,5 +39,10 @@ public class QuestionController {
     @GetMapping("/related")
     public List<QuestionDTO> getRelatedQuestionByTag(@RequestParam("tags") String[] tags){
         return questionService.getRelatedQuestionByTag(tags);
+    }
+
+    @GetMapping("/hotTags")
+    public List<String> getHotTags(){
+        return hotTagCache.getHots();
     }
 }

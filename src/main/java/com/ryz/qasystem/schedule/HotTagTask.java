@@ -1,5 +1,6 @@
 package com.ryz.qasystem.schedule;
 
+import com.ryz.qasystem.cache.HotTagCache;
 import com.ryz.qasystem.mapper.QuestionMapper;
 import com.ryz.qasystem.model.Question;
 import lombok.extern.slf4j.Slf4j;
@@ -16,20 +17,24 @@ public class HotTagTask {
 
     @Autowired
     QuestionMapper questionMapper;
-
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-
-
+    @Autowired
+    private HotTagCache hotTagCache;
 
     @Scheduled(fixedRate = 1000 * 60 * 60 * 3)
     public void hotTagSchedule() {
-        log.info("The time is now {}", dateFormat.format(new Date()));
+        log.info("hotTagSchedule start {}", new Date());
 
         Map<String, Integer> priorities = new HashMap<>();
         List<Question> questions = questionMapper.getAllQuestionsByPage(null, null, null);
         for (Question question:questions){
-
+            String[] tags = question.getTag().split(",");
+            for(String tag:tags){
+                priorities.put(tag, priorities.getOrDefault(tag, 0)+1);
+            }
         }
+
+        hotTagCache.updateTags(priorities);
+        log.info("hotTagSchedule stop {}", new Date());
 
     }
 }
