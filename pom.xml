@@ -93,6 +93,12 @@
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>5.2.4</version>
+                <configuration>
+                    <url>jdbc:mysql://121.196.158.139:3306/community?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai</url>
+                    <user>root</user>
+                    <password>miasan1358</password>
+                    <driver>com.mysql.cj.jdbc.Driver</driver>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.mybatis.generator</groupId>
