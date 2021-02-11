@@ -5,6 +5,7 @@ import com.ryz.qasystem.model.RespBean;
 import com.ryz.qasystem.model.User;
 import com.ryz.qasystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,21 +24,11 @@ public class UserController {
     @Autowired
     AvatarUtil avatarUtil;
 
-//    @PostMapping("/login")
-//    public RespBean login(String username, String password, HttpServletRequest request){
-//
-//        List<User> userList = userService.loadUserByNameAndPwd(username, password);
-//
-//        if (userList != null && userList.size() == 1){
-//            HttpSession session = request.getSession();
-//            session.setAttribute("user", userList.get(0));
-//            return RespBean.ok("登录成功", userList.get(0));
-//        }
-//        return RespBean.error("用户名或者密码错误，请重新输入");
-//    }
-
-    @PostMapping("/signUp")
+    @PostMapping("/signUp")     //需要在SecurityConfig中放行该接口，不然访问不到
     public RespBean signUp(@RequestBody User user){
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String encode = encoder.encode(user.getPassword());
+        user.setPassword(encode);
         String avatarUrl = avatarUtil.getAvatarData();
         user.setUserFace(avatarUrl);
         if (userService.addUser(user)==1){
