@@ -3,6 +3,8 @@ package com.ryz.qasystem.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ryz.qasystem.model.RespBean;
 import com.ryz.qasystem.model.User;
+import com.ryz.qasystem.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.*;
@@ -10,6 +12,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.io.PrintWriter;
 
@@ -17,8 +21,13 @@ import java.io.PrintWriter;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    UserService userService;
 
-
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/js/**", "/css/**", "/images/**");
@@ -26,19 +35,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        super.configure(auth);
+        auth.userDetailsService(userService);
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .anyRequest().authenticated()
+                .anyRequest().authenticated()    //所有请求都要认证之后才能访问
                 .and()
                 .formLogin()
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .loginPage("/login")
-                .loginProcessingUrl("/dologin")
+                .loginProcessingUrl("/doLogin")
                 .successHandler((req, resp, authentication)->{
                     resp.setContentType("application/json;charset=utf-8");
                     PrintWriter out = resp.getWriter();
@@ -67,7 +76,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     }else if(e instanceof DisabledException){
                         error.setMsg("账户被禁用，请联系管理员");
                     }else if(e instanceof BadCredentialsException){
-                        error.setMsg("用户名或者密码错误，请重新输入");
+                        error.setMsg("用错误，请重新输入");
                     }
 
                     String s = new ObjectMapper().writeValueAsString(error);

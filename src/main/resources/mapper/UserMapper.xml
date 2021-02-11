@@ -14,6 +14,10 @@
     id, name, password, email, user_face, create_time, update_time
   </sql>
 
+
+  <select id="loadUserByUsername" resultMap="BaseResultMap">
+    select * from user where name=#{username}
+  </select>
   <select id="getUserById" resultMap="BaseResultMap">
     select * from user where id=#{id}
   </select>

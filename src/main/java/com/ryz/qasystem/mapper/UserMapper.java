@@ -20,4 +20,6 @@ public interface UserMapper {
     List<User> loadUserByNameAndPwd(String username, String password);
 
     User getUserById(Integer commentator);
+
+    User loadUserByUsername(String username);
 }

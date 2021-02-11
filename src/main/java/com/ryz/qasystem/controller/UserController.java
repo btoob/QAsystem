@@ -23,18 +23,18 @@ public class UserController {
     @Autowired
     AvatarUtil avatarUtil;
 
-    @PostMapping("/login")
-    public RespBean login(String username, String password, HttpServletRequest request){
-
-        List<User> userList = userService.loadUserByNameAndPwd(username, password);
-
-        if (userList != null && userList.size() == 1){
-            HttpSession session = request.getSession();
-            session.setAttribute("user", userList.get(0));
-            return RespBean.ok("登录成功", userList.get(0));
-        }
-        return RespBean.error("用户名或者密码错误，请重新输入");
-    }
+//    @PostMapping("/login")
+//    public RespBean login(String username, String password, HttpServletRequest request){
+//
+//        List<User> userList = userService.loadUserByNameAndPwd(username, password);
+//
+//        if (userList != null && userList.size() == 1){
+//            HttpSession session = request.getSession();
+//            session.setAttribute("user", userList.get(0));
+//            return RespBean.ok("登录成功", userList.get(0));
+//        }
+//        return RespBean.error("用户名或者密码错误，请重新输入");
+//    }
 
     @PostMapping("/signUp")
     public RespBean signUp(@RequestBody User user){
