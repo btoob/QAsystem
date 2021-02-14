@@ -28,6 +28,7 @@ public class QuestionService {
         for (Question question : data) {
             QuestionDTO questionDTO = new QuestionDTO();
             User user = userMapper.getUserById(question.getUserId());
+            user.setPassword(null);
             BeanUtils.copyProperties(question, questionDTO);
             String[] split = question.getTag().split(",");
             questionDTO.setTag(split);
@@ -44,6 +45,7 @@ public class QuestionService {
     public QuestionDTO getQuestionById(Integer id) {
         Question question = questionMapper.selectByPrimaryKey(id);
         User user = userMapper.getUserById(question.getUserId());
+        user.setPassword(null);
         QuestionDTO questionDTO = new QuestionDTO();
         BeanUtils.copyProperties(question, questionDTO);
         String tag = question.getTag();
@@ -86,6 +88,7 @@ public class QuestionService {
         for (Question question : data) {
             QuestionDTO questionDTO = new QuestionDTO();
             User user = userMapper.getUserById(question.getUserId());
+            user.setPassword(null);
             BeanUtils.copyProperties(question, questionDTO);
             String[] split = question.getTag().split(",");
             questionDTO.setTag(split);
@@ -112,6 +115,7 @@ public class QuestionService {
                 }
                 set.add(question.getId());
                 User user = userMapper.getUserById(question.getUserId());
+                user.setPassword(null);
                 QuestionDTO questionDTO = new QuestionDTO();
                 BeanUtils.copyProperties(question, questionDTO);
                 questionDTO.setUser(user);
@@ -131,6 +135,7 @@ public class QuestionService {
         for (Question question : data) {
             QuestionDTO questionDTO = new QuestionDTO();
             User user = userMapper.getUserById(question.getUserId());
+            user.setPassword(null);
             BeanUtils.copyProperties(question, questionDTO);
             String[] split = question.getTag().split(",");
             questionDTO.setTag(split);

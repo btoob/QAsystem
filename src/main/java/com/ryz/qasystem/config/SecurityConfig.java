@@ -32,7 +32,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         //此处放行的 /signUp, /index是接口，不是页面
-        web.ignoring().antMatchers("/js/**", "/css/**", "/images/**", "/signUp","/index");
+        //放行的/index.html是页面
+        web.ignoring().antMatchers("/js/**", "/css/**", "/img/**");
     }
 
     @Override
@@ -43,8 +44,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-//                .antMatchers("/index").permitAll()
-                .anyRequest().authenticated()    //所有请求都要认证之后才能访问
+//                .antMatchers("/question/**").permitAll()  //question开头的接口直接放行
+//                .antMatchers("/signUp").authenticated()   //signUp接口需要认证
+//                .anyRequest().authenticated()    //所有请求都要认证之后才能访问
+                .anyRequest().permitAll()          //所有请求都直接放行
                 .and()
                 .formLogin()
                 .usernameParameter("username")
