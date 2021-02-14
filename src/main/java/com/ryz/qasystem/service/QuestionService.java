@@ -23,21 +23,10 @@ public class QuestionService {
         if (page != null && size != null) {
             page = (page - 1) * size;
         }
-        List<Question> data = questionMapper.getAllQuestionsByPage(search, page, size);
-        List<QuestionDTO> questionDTOS = new ArrayList<>();
-        for (Question question : data) {
-            QuestionDTO questionDTO = new QuestionDTO();
-            User user = userMapper.getUserById(question.getUserId());
-            user.setPassword(null);
-            BeanUtils.copyProperties(question, questionDTO);
-            String[] split = question.getTag().split(",");
-            questionDTO.setTag(split);
-            questionDTO.setUser(user);
-            questionDTOS.add(questionDTO);
-        }
+        List<QuestionDTO> data = questionMapper.getAllQuestionsByPage(search, page, size);
         Long totalNumQueston = questionMapper.getTotalNumQueston(search);
         RespPageBean pageBean = new RespPageBean();
-        pageBean.setData(questionDTOS);
+        pageBean.setData(data);
         pageBean.setTotal(totalNumQueston);
         return pageBean;
     }
@@ -49,9 +38,8 @@ public class QuestionService {
         QuestionDTO questionDTO = new QuestionDTO();
         BeanUtils.copyProperties(question, questionDTO);
         String tag = question.getTag();
-        String[] split = tag.split(",");
         questionDTO.setUser(user);
-        questionDTO.setTag(split);
+        questionDTO.setTag(tag);
         return questionDTO;
     }
 
@@ -83,21 +71,10 @@ public class QuestionService {
             page = (page - 1) * size;
         }
 
-        List<Question> data = questionMapper.getUserQuestionsByPage(page, size, id);
-        List<QuestionDTO> questionDTOs = new ArrayList<>();
-        for (Question question : data) {
-            QuestionDTO questionDTO = new QuestionDTO();
-            User user = userMapper.getUserById(question.getUserId());
-            user.setPassword(null);
-            BeanUtils.copyProperties(question, questionDTO);
-            String[] split = question.getTag().split(",");
-            questionDTO.setTag(split);
-            questionDTO.setUser(user);
-            questionDTOs.add(questionDTO);
-        }
+        List<QuestionDTO> data = questionMapper.getUserQuestionsByPage(page, size, id);
         Long totalNumQuestion = questionMapper.getTotalNumQuestonByUserId(id);
         RespPageBean pageBean = new RespPageBean();
-        pageBean.setData(questionDTOs);
+        pageBean.setData(data);
         pageBean.setTotal(totalNumQuestion);
         return pageBean;
 
@@ -107,18 +84,14 @@ public class QuestionService {
         List<QuestionDTO> questionDTOs = new ArrayList<>();
         Set<Integer> set = new HashSet<>();
         for (String tag : tags) {
-            List<Question> relatedQuestion = questionMapper.getRelatedQuestionByTag(tag);
-            for (Question question : relatedQuestion) {
+//            List<Question> relatedQuestion = questionMapper.getRelatedQuestionByTag(tag);
+            List<QuestionDTO> relatedQuestion = questionMapper.getRelatedQuestionByTag(tag);
+            for (QuestionDTO questionDTO : relatedQuestion) {
                 //防止重复
-                if (set.contains(question.getId())){
+                if (set.contains(questionDTO.getId())){
                     continue;
                 }
-                set.add(question.getId());
-                User user = userMapper.getUserById(question.getUserId());
-                user.setPassword(null);
-                QuestionDTO questionDTO = new QuestionDTO();
-                BeanUtils.copyProperties(question, questionDTO);
-                questionDTO.setUser(user);
+                set.add(questionDTO.getId());
                 questionDTOs.add(questionDTO);
             }
         }
@@ -130,21 +103,10 @@ public class QuestionService {
             page = (page-1)*size;
         }
 
-        List<Question> data = questionMapper.getQuestionByTagByPage(page, size, tag);
-        List<QuestionDTO> questionDTOs = new ArrayList<>();
-        for (Question question : data) {
-            QuestionDTO questionDTO = new QuestionDTO();
-            User user = userMapper.getUserById(question.getUserId());
-            user.setPassword(null);
-            BeanUtils.copyProperties(question, questionDTO);
-            String[] split = question.getTag().split(",");
-            questionDTO.setTag(split);
-            questionDTO.setUser(user);
-            questionDTOs.add(questionDTO);
-        }
+        List<QuestionDTO> data = questionMapper.getQuestionByTagByPage(page, size, tag);
         Long totalNumQuestion = questionMapper.getTotalNumQuestonByTag(tag);
         RespPageBean pageBean = new RespPageBean();
-        pageBean.setData(questionDTOs);
+        pageBean.setData(data);
         pageBean.setTotal(totalNumQuestion);
         return pageBean;
     }

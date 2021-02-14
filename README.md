@@ -34,6 +34,7 @@ mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
 5、getUserQuestionsByPage与getAllQuestionsByPage(Integer page, Integer size)有重复代码抽取
 6、问题查询逻辑貌似有重复，已经将所有问题封装成DTOs返回了，为何进入问题详情页面时再查一次？
 7、question和questionDTO类中的tag定义不一样，一个数组一个字符串
-8、查询question返回需要添加user，应该在查询的时候使用mybatis一对多
+8、查询question返回需要添加user，应该在查询的时候使用mybatis一对多(已修改)
+   (QuestionMapper.xml中定义questionDTO的resultMap封装user，查询直接返回questionDTO)
 9、网站的首页应该是问题列表页而不是登录页
 ```

@@ -15,6 +15,17 @@
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.ryz.qasystem.model.Question">
     <result column="description" jdbcType="LONGVARCHAR" property="description" />
   </resultMap>
+  <resultMap id="QuestionWithUser" type="com.ryz.qasystem.dto.QuestionDTO" extends="BaseResultMap">
+    <association property="user" javaType="com.ryz.qasystem.model.User">
+      <id column="id" jdbcType="INTEGER" property="id" />
+      <result column="name" jdbcType="VARCHAR" property="name" />
+      <result column="password" jdbcType="VARCHAR" property="password" />
+      <result column="email" jdbcType="VARCHAR" property="email" />
+      <result column="user_face" jdbcType="VARCHAR" property="userFace" />
+      <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+      <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    </association>
+  </resultMap>
   <sql id="Base_Column_List">
     id, title, create_time, update_time, comment_count, view_count, like_count, tag, 
     user_id
@@ -31,27 +42,30 @@
       </if>
     </where>
   </select>
-  <select id="getQuestionByTagByPage" resultMap="BaseResultMap">
-    select * from question
+  <select id="getQuestionByTagByPage" resultMap="QuestionWithUser">
+    select q.*, u.id, u.name, u.email, u.user_face, u.create_time, u.update_time
+    from question q, user u
     <where>
+      q.user_id=u.id
       <if test="tag != null and tag != ''">
-        tag regexp #{tag}
+        and q.tag regexp #{tag}
       </if>
-      order by create_time desc
+      order by q.create_time desc
       <if test="page!=null and size!=null">
         limit #{page}, #{size}
       </if>
     </where>
   </select>
-  <select id="getRelatedQuestionByTag" resultMap="BaseResultMap" parameterType="String">
-    select * from question
+  <select id="getRelatedQuestionByTag" resultMap="QuestionWithUser" parameterType="String">
+    select q.*, u.id, u.name, u.email, u.user_face, u.create_time, u.update_time
+    from question q, user u
     <where>
-
+      q.user_id=u.id
       <if test="tag != null and tag != ''">
-        tag regexp #{_parameter}
+       and q.tag regexp #{_parameter}
       </if>
     </where>
-    order by create_time desc limit 10
+    order by q.create_time desc limit 10
   </select>
   <update id="incCommentCount" parameterType="com.ryz.qasystem.model.Question">
     update question set update_time=#{updateTime, jdbcType=TIMESTAMP},comment_count=#{commentCount, jdbcType=INTEGER}
@@ -61,18 +75,20 @@
     update question set update_time=#{updateTime, jdbcType=TIMESTAMP},view_count=#{viewCount, jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="getAllQuestionsByPage" resultMap="BaseResultMap">
-    select * from question
+  <select id="getAllQuestionsByPage" resultMap="QuestionWithUser">
+    select q.*, u.id, u.name, u.email, u.user_face, u.create_time, u.update_time from question q left join user u on q.user_id=u.id
     <if test=" search!=null and search != '' ">
       where question.title like concat('%',#{search},'%')
     </if>
-    order by create_time desc
+    order by q.create_time desc
     <if test="page!=null and size!=null">
       limit #{page}, #{size}
     </if>
   </select>
-  <select id="getUserQuestionsByPage" resultMap="BaseResultMap">
-    select * from question where user_id=#{id} order by create_time desc
+  <select id="getUserQuestionsByPage" resultMap="QuestionWithUser">
+    select q.*, u.id, u.name, u.email, u.user_face, u.create_time, u.update_time
+    from question q, user u where q.user_id=#{id} and q.user_id=u.id
+    order by q.create_time desc
     <if test="page!=null and size!=null">
       limit #{page}, #{size}
     </if>

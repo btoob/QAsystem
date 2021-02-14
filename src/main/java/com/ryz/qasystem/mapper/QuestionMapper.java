@@ -1,5 +1,6 @@
 package com.ryz.qasystem.mapper;
 
+import com.ryz.qasystem.dto.QuestionDTO;
 import com.ryz.qasystem.model.Question;
 import org.apache.ibatis.annotations.Param;
 
@@ -20,7 +21,7 @@ public interface QuestionMapper {
 
     int updateByPrimaryKey(Question record);
 
-    List<Question> getAllQuestionsByPage(@Param("search") String search, @Param("page") Integer page, @Param("size") Integer size);
+    List<QuestionDTO> getAllQuestionsByPage(@Param("search") String search, @Param("page") Integer page, @Param("size") Integer size);
 
     Long getTotalNumQueston(String search);
 
@@ -28,13 +29,13 @@ public interface QuestionMapper {
 
     void incCommentCount(Question question);
 
-    List<Question> getUserQuestionsByPage(@Param("page") Integer page, @Param("size") Integer size, @Param("id") Integer id);
+    List<QuestionDTO> getUserQuestionsByPage(@Param("page") Integer page, @Param("size") Integer size, @Param("id") Integer id);
 
     Long getTotalNumQuestonByUserId(Integer id);
 
-    List<Question> getRelatedQuestionByTag(String tag);
+    List<QuestionDTO> getRelatedQuestionByTag(String tag);
 
-    List<Question> getQuestionByTagByPage(@Param("page") Integer page, @Param("size") Integer size, @Param("tag") String tag);
+    List<QuestionDTO> getQuestionByTagByPage(@Param("page") Integer page, @Param("size") Integer size, @Param("tag") String tag);
 
     Long getTotalNumQuestonByTag(String tag);
 }

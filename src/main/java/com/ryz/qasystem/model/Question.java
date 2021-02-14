@@ -19,7 +19,7 @@ public class Question {
 
     private Integer likeCount;
 
-    private String tag;
+    private String tag;    //数组对于前端比较友好， 这里是字符串， 转数组在前端进行
 
     private Integer userId;
 

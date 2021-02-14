@@ -1,6 +1,7 @@
 package com.ryz.qasystem.schedule;
 
 import com.ryz.qasystem.cache.HotTagCache;
+import com.ryz.qasystem.dto.QuestionDTO;
 import com.ryz.qasystem.mapper.QuestionMapper;
 import com.ryz.qasystem.model.Question;
 import lombok.extern.slf4j.Slf4j;
@@ -25,8 +26,8 @@ public class HotTagTask {
         log.info("hotTagSchedule start {}", new Date());
 
         Map<String, Integer> priorities = new HashMap<>();
-        List<Question> questions = questionMapper.getAllQuestionsByPage(null, null, null);
-        for (Question question:questions){
+        List<QuestionDTO> questions = questionMapper.getAllQuestionsByPage(null, null, null);
+        for (QuestionDTO question:questions){
             String[] tags = question.getTag().split(",");
             for(String tag:tags){
                 priorities.put(tag, priorities.getOrDefault(tag, 0)+1);
