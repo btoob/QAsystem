@@ -110,4 +110,16 @@ public class QuestionService {
         pageBean.setTotal(totalNumQuestion);
         return pageBean;
     }
+
+    public RespPageBean getNoReplyQuestionsByPage(Integer page, Integer size) {
+        if (page!=null&&size!=null){
+            page=(page-1)*size;
+        }
+        List<QuestionDTO> data = questionMapper.getNoReplyQuestionsByPage(page,size);
+        Long totalNoReplyQuestion = questionMapper.getTotalReplyQuestionNums();
+        RespPageBean pageBean = new RespPageBean();
+        pageBean.setData(data);
+        pageBean.setTotal(totalNoReplyQuestion);
+        return pageBean;
+    }
 }

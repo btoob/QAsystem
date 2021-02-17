@@ -38,4 +38,8 @@ public interface QuestionMapper {
     List<QuestionDTO> getQuestionByTagByPage(@Param("page") Integer page, @Param("size") Integer size, @Param("tag") String tag);
 
     Long getTotalNumQuestonByTag(String tag);
+
+    List<QuestionDTO> getNoReplyQuestionsByPage(Integer page, Integer size);
+
+    Long getTotalReplyQuestionNums();
 }
