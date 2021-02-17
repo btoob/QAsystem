@@ -35,7 +35,10 @@
     description
   </sql>
 
-  <select id="getTotalReplyQuestionNums" resultType="java.lang.Long">
+  <select id="getTotalNoReplyQuestionNums" resultType="java.lang.Long">
+    SELECT count(1) FROM question WHERE comment_count=0
+  </select>
+  <select id="getTotalHotQuestionNums" resultType="java.lang.Long">
     SELECT count(1) FROM question WHERE comment_count!=0
   </select>
   <select id="getTotalNumQuestonByTag" resultType="java.lang.Long">
@@ -90,11 +93,20 @@
       limit #{page}, #{size}
     </if>
   </select>
-  <select id="getNoReplyQuestionsByPage" resultMap="QuestionWithUser">
+  <select id="getHotQuestionsByPage" resultMap="QuestionWithUser">
     SELECT q.*, q.comment_count+q.view_count AS qw, u.id, u.name, u.email, u.user_face, u.create_time, u.update_time
      from question q left join user u on q.user_id=u.id
     WHERE comment_count!=0
     ORDER BY qw DESC
+    <if test="page!=null and size!=null">
+      limit #{page}, #{size}
+    </if>
+  </select>
+  <select id="getNoReplyQuestionsByPage" resultMap="QuestionWithUser">
+    select q.*, u.id, u.name, u.email, u.user_face, u.create_time, u.update_time
+    from question q left join user u on q.user_id=u.id
+    where q.comment_count=0
+    order by q.create_time desc
     <if test="page!=null and size!=null">
       limit #{page}, #{size}
     </if>

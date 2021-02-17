@@ -39,7 +39,11 @@ public interface QuestionMapper {
 
     Long getTotalNumQuestonByTag(String tag);
 
+    List<QuestionDTO> getHotQuestionsByPage(Integer page, Integer size);
+
+    Long getTotalHotQuestionNums();
+
     List<QuestionDTO> getNoReplyQuestionsByPage(Integer page, Integer size);
 
-    Long getTotalReplyQuestionNums();
+    Long getTotalNoReplyQuestionNums();
 }

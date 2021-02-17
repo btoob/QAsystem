@@ -111,12 +111,24 @@ public class QuestionService {
         return pageBean;
     }
 
+    public RespPageBean getHotQuestionsByPage(Integer page, Integer size) {
+        if (page!=null&&size!=null){
+            page=(page-1)*size;
+        }
+        List<QuestionDTO> data = questionMapper.getHotQuestionsByPage(page,size);
+        Long totalHotQuestion = questionMapper.getTotalHotQuestionNums();
+        RespPageBean pageBean = new RespPageBean();
+        pageBean.setData(data);
+        pageBean.setTotal(totalHotQuestion);
+        return pageBean;
+    }
+
     public RespPageBean getNoReplyQuestionsByPage(Integer page, Integer size) {
         if (page!=null&&size!=null){
             page=(page-1)*size;
         }
         List<QuestionDTO> data = questionMapper.getNoReplyQuestionsByPage(page,size);
-        Long totalNoReplyQuestion = questionMapper.getTotalReplyQuestionNums();
+        Long totalNoReplyQuestion = questionMapper.getTotalNoReplyQuestionNums();
         RespPageBean pageBean = new RespPageBean();
         pageBean.setData(data);
         pageBean.setTotal(totalNoReplyQuestion);

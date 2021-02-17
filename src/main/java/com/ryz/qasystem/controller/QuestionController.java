@@ -32,7 +32,12 @@ public class QuestionController {
         return questionService.getQuestionById(id);
     }
 
-    @GetMapping("/noReply/")
+    @GetMapping("/hot/")
+    public RespPageBean getHotQuestionsByPage(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "5") Integer size){
+        return questionService.getHotQuestionsByPage(page,size);
+    }
+
+    @GetMapping("/noReply")
     public RespPageBean getNoReplyQuestionsByPage(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "5") Integer size){
         return questionService.getNoReplyQuestionsByPage(page,size);
     }
