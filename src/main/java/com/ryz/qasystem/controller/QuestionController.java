@@ -32,7 +32,7 @@ public class QuestionController {
         return questionService.getQuestionById(id);
     }
 
-    @GetMapping("/hot/")
+    @GetMapping("/hot")
     public RespPageBean getHotQuestionsByPage(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "5") Integer size){
         return questionService.getHotQuestionsByPage(page,size);
     }
