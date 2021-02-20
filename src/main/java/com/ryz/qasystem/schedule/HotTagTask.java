@@ -3,13 +3,11 @@ package com.ryz.qasystem.schedule;
 import com.ryz.qasystem.cache.HotTagCache;
 import com.ryz.qasystem.dto.QuestionDTO;
 import com.ryz.qasystem.mapper.QuestionMapper;
-import com.ryz.qasystem.model.Question;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Component
@@ -21,7 +19,7 @@ public class HotTagTask {
     @Autowired
     private HotTagCache hotTagCache;
 
-    @Scheduled(fixedRate = 1000 * 60 * 60 * 3)
+    @Scheduled(fixedRate = 1000 * 60 * 60 * 3)   //3小时一次
     public void hotTagSchedule() {
         log.info("hotTagSchedule start {}", new Date());
 

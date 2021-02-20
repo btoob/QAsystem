@@ -92,4 +92,19 @@ public class Seckill {
     public void setVersion(Integer version) {
         this.version = version;
     }
+
+    @Override
+    public String toString() {
+        return "Seckill{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", stockCount=" + stockCount +
+                ", status=" + status +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", version=" + version +
+                '}';
+    }
 }

@@ -15,6 +15,10 @@
   <sql id="Base_Column_List">
     id, name, stock_count, status, start_time, end_time, create_time, update_time, version
   </sql>
+  
+  <select id="selectByDate" resultMap="BaseResultMap">
+    select * from seckill where stock_count>=0 and #{date}>=start_time and end_time>=#{date}
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
