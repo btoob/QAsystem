@@ -1,5 +1,5 @@
 CREATE TABLE `seckill` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '商品库存id',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '商品id',
   `name` varchar(120) NOT NULL COMMENT '商品名称',
   `stock_count` int(11) NOT NULL COMMENT '库存数量',
   `status` tinyint(4) NOT NULL COMMENT '状态标示：-1指审核未通过，0指未审核，1指审核通过',

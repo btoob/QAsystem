@@ -80,7 +80,21 @@
 <!--               enableSelectByExample="false"-->
 <!--               selectByExampleQueryId="false">-->
 <!--        </table>-->
-        <table tableName="notification" domainObjectName="Notification"
+<!--        <table tableName="notification" domainObjectName="Notification"-->
+<!--               enableCountByExample="false"-->
+<!--               enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false"-->
+<!--               enableSelectByExample="false"-->
+<!--               selectByExampleQueryId="false">-->
+<!--        </table>-->
+        <table tableName="seckill" domainObjectName="Seckill"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+        <table tableName="secorder" domainObjectName="Secorder"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"

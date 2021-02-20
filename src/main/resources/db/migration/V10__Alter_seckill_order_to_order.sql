@@ -1,0 +1,1 @@
+rename table seckill_order to secorder;
