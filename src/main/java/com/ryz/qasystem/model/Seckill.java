@@ -1,8 +1,9 @@
 package com.ryz.qasystem.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Seckill {
+public class Seckill implements Serializable {
     private Long id;
 
     private String name;

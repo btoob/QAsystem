@@ -1,11 +1,13 @@
 package com.ryz.qasystem.service;
 
+import com.ryz.qasystem.Utils.OrderCreateThread;
 import com.ryz.qasystem.Utils.OrderRecord;
 import com.ryz.qasystem.model.RespBean;
 import com.ryz.qasystem.model.Seckill;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -15,6 +17,7 @@ import static com.ryz.qasystem.Utils.SystemConst.CONST_SECKILLGOODS_ID_PREFIX;
 import static com.ryz.qasystem.Utils.SystemConst.CONST_USER_ID_PREFIX;
 
 @Service
+@Transactional
 public class SeckillService {
 
     private static int corePoolSize = Runtime.getRuntime().availableProcessors();
@@ -23,6 +26,10 @@ public class SeckillService {
 
     @Autowired
     RedisTemplate redisTemplate;
+
+    @Autowired
+    OrderCreateThread orderCreateThread;
+
 
     public RespBean saveOrder(Integer id, Integer userId) {
         //判断用户是否已经抢过一次
@@ -45,6 +52,8 @@ public class SeckillService {
         //保存下单信息，即商品id与用户id的关联类，保存在redis中，供多线程处理
         redisTemplate.boundListOps(OrderRecord.class.getSimpleName()).leftPush(new OrderRecord(id, userId));
 
+
+        //使用多线程来同时处理所有的下单信息
         executor.execute(orderCreateThread);
         return RespBean.ok("抢购成功，如需支付，请支付");
 
