@@ -3,14 +3,14 @@ package com.ryz.qasystem.Utils;
 import java.io.Serializable;
 
 public class OrderRecord implements Serializable {
-    private Integer id;
+    private Long id;
     private Integer userId;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -22,7 +22,7 @@ public class OrderRecord implements Serializable {
         this.userId = userId;
     }
 
-    public OrderRecord(Integer id, Integer userId) {
+    public OrderRecord(Long id, Integer userId) {
         this.id = id;
         this.userId = userId;
     }

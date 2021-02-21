@@ -1,8 +1,9 @@
 package com.ryz.qasystem.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Secorder {
+public class Secorder implements Serializable {
     private Long id;
 
     private Long seckillId;

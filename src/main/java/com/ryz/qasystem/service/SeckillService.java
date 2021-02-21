@@ -9,6 +9,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -31,11 +32,11 @@ public class SeckillService {
     OrderCreateThread orderCreateThread;
 
 
-    public RespBean saveOrder(Integer id, Integer userId) {
+    public RespBean saveOrder(Long id, Integer userId) {
         //判断用户是否已经抢过一次
 
         //从商品列表中取出商品id
-        id = (Integer) redisTemplate.boundListOps(CONST_SECKILLGOODS_ID_PREFIX + id).rightPop();
+        id = (Long)redisTemplate.boundListOps(CONST_SECKILLGOODS_ID_PREFIX + id).rightPop();
         if (id == null) { //商品不存在
             return RespBean.error("已经被抢完了");
         }
@@ -59,5 +60,10 @@ public class SeckillService {
 
 
 
+    }
+
+    public List<Seckill> getAllGoods() {
+        List<Seckill> seckills = redisTemplate.boundHashOps(Seckill.class.getSimpleName()).values();
+        return seckills;
     }
 }
