@@ -1,0 +1,1 @@
+alter table comment add column dislike_count int default 0
