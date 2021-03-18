@@ -21,6 +21,8 @@ public class Comment {
 
     private Integer commentCount;
 
+    private Integer dislikeCount;
+
     public Integer getId() {
         return id;
     }
@@ -91,5 +93,13 @@ public class Comment {
 
     public void setCommentCount(Integer commentCount) {
         this.commentCount = commentCount;
+    }
+
+    public Integer getDislikeCount() {
+        return dislikeCount;
+    }
+
+    public void setDislikeCount(Integer dislikeCount) {
+        this.dislikeCount = dislikeCount;
     }
 }

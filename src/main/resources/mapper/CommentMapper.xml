@@ -11,10 +11,11 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="like_count" jdbcType="INTEGER" property="likeCount" />
     <result column="comment_count" jdbcType="INTEGER" property="commentCount" />
+    <result column="dislike_count" jdbcType="INTEGER" property="dislikeCount" />
   </resultMap>
   <sql id="Base_Column_List">
     id, parent_id, type, commentator, content, create_time, update_time, like_count, 
-    comment_count
+    comment_count, dislike_count
   </sql>
 
   <update id="incCommentCount" parameterType="com.ryz.qasystem.model.Comment">
