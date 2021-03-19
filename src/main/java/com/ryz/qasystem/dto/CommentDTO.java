@@ -24,6 +24,16 @@ public class CommentDTO {
 
     private Integer commentCount;
 
+    private Integer dislikeCount;
+
+    public Integer getDislikeCount() {
+        return dislikeCount;
+    }
+
+    public void setDislikeCount(Integer dislikeCount) {
+        this.dislikeCount = dislikeCount;
+    }
+
     private User user;
 
     public User getUser() {
