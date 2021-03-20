@@ -28,4 +28,12 @@ public class CommentController {
         }
         return RespBean.error("评论失败");
     }
+
+    @PutMapping("/{id}")
+    public RespBean updateLikeCount(@PathVariable Integer id, @RequestParam Integer newLikeCount, @RequestParam Integer newDislikeCount){
+        if (commentService.updateLikeCount(id, newLikeCount, newDislikeCount)==1){
+            return RespBean.ok("更新点赞数成功");
+        }
+        return RespBean.error("更新点赞数失败");
+    }
 }

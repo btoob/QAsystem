@@ -95,4 +95,9 @@ public class CommentService {
         }
         return commentDTOs;
     }
+
+
+    public Integer updateLikeCount(Integer id, Integer newLikeCount, Integer newDislikeCount) {
+        return commentMapper.updateLikeCount(id, newLikeCount, newDislikeCount);
+    }
 }

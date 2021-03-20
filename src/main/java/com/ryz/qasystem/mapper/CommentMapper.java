@@ -1,6 +1,7 @@
 package com.ryz.qasystem.mapper;
 
 import com.ryz.qasystem.model.Comment;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -20,4 +21,7 @@ public interface CommentMapper {
     void incCommentCount(Comment dbcomment);
 
     List<Comment> getAllCommentsByQuestionId(Integer id);
+
+    Integer updateLikeCount(@Param("id") Integer id, @Param("newLikeCount") Integer newLikeCount,
+                            @Param("newDislikeCount") Integer newDislikeCount);
 }

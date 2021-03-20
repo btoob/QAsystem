@@ -1,0 +1,14 @@
+alter table user modify column create_time datetime null DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+modify column update_time datetime null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间';
+alter table comment modify column create_time datetime null DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+modify column update_time datetime null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间';
+alter table notification modify column create_time datetime null DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+modify column update_time datetime null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间';
+alter table question modify column create_time datetime null DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+modify column update_time datetime null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间';
+alter table seckill modify column create_time datetime null DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+modify column update_time datetime null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间';
+alter table secorder modify column create_time datetime null DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+modify column update_time datetime null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间';
+alter table ad modify column create_time datetime null DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+modify column update_time datetime null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间';

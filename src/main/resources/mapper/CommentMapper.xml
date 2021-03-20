@@ -18,16 +18,18 @@
     comment_count, dislike_count
   </sql>
 
+
+  <update id="updateLikeCount" parameterType="java.lang.Integer">
+    update comment set like_count=#{newLikeCount}, dislike_count=#{newDislikeCount}
+    where id=#{id}
+  </update>
   <update id="incCommentCount" parameterType="com.ryz.qasystem.model.Comment">
     update comment set update_time=#{updateTime, jdbcType=TIMESTAMP},comment_count=#{commentCount, jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
-
   <select id="getAllCommentsByQuestionId" resultMap="BaseResultMap">
     select * from comment where parent_id=#{id}
   </select>
-
-
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
