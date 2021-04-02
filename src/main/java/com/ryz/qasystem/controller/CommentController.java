@@ -1,6 +1,7 @@
 package com.ryz.qasystem.controller;
 
 import com.ryz.qasystem.dto.CommentDTO;
+import com.ryz.qasystem.dto.SecondCommentDTO;
 import com.ryz.qasystem.model.Comment;
 import com.ryz.qasystem.model.RespBean;
 import com.ryz.qasystem.service.CommentService;
@@ -19,6 +20,11 @@ public class CommentController {
     @GetMapping("/{id}")
     public List<CommentDTO> getAllCommentsByQuestionId(@PathVariable Integer id){
         return commentService.getAllCommentsByQuestionId(id);
+    }
+
+    @GetMapping("/second/{id}")
+    public List<SecondCommentDTO> getAllSecondCommentByParentId(@PathVariable Integer id){
+        return commentService.getAllSecondCommentByParentId(id);
     }
 
     @PostMapping("/")

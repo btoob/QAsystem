@@ -2,10 +2,8 @@ package com.ryz.qasystem.service;
 
 
 import com.ryz.qasystem.dto.CommentDTO;
-import com.ryz.qasystem.mapper.CommentMapper;
-import com.ryz.qasystem.mapper.NotificationMapper;
-import com.ryz.qasystem.mapper.QuestionMapper;
-import com.ryz.qasystem.mapper.UserMapper;
+import com.ryz.qasystem.dto.SecondCommentDTO;
+import com.ryz.qasystem.mapper.*;
 import com.ryz.qasystem.model.Comment;
 import com.ryz.qasystem.model.Notification;
 import com.ryz.qasystem.model.Question;
@@ -30,6 +28,8 @@ public class CommentService {
     UserMapper userMapper;
     @Autowired
     NotificationMapper notificationMapper;
+    @Autowired
+    SecondCommentMapper secondCommentMapper;
     @Transactional
     public boolean insert(Comment comment) {
         if (comment.getType()==1){   //回复问题
@@ -99,5 +99,9 @@ public class CommentService {
 
     public Integer updateLikeCount(Integer id, Integer newLikeCount, Integer newDislikeCount) {
         return commentMapper.updateLikeCount(id, newLikeCount, newDislikeCount);
+    }
+
+    public List<SecondCommentDTO> getAllSecondCommentByParentId(Integer id) {
+        return secondCommentMapper.getAllSecondCommentByParentId(id);
     }
 }
